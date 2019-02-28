@@ -6,11 +6,11 @@ in dos
 
 Ubuntu login
 maarset
-meathead
+#####
 
 root on Ubuntu Win 10 box
 maarset@S15057:~/AngularCode/ng5$ sudo su
-[sudo] password for maarset: [meathead]
+[sudo] password for maarset: [#####]
 root@S15057:/home/maarset/AngularCode/ng5# ng serve
 
 maarset@S15057:~/AngularCode/ngFive$ pwd
