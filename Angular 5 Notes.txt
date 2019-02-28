@@ -1,0 +1,207 @@
+Ubontu files
+C:\Users\maarset\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\home\maarset\AngularCode\ngFive
+
+in CMD go to above folder and type "Code ." to launch Visual Studio Code
+in dos
+
+Ubuntu login
+maarset
+meathead
+
+root on Ubuntu Win 10 box
+maarset@S15057:~/AngularCode/ng5$ sudo su
+[sudo] password for maarset: [meathead]
+root@S15057:/home/maarset/AngularCode/ng5# ng serve
+
+maarset@S15057:~/AngularCode/ngFive$ pwd
+/home/maarset/AngularCode/ngFive
+maarset@S15057:~/AngularCode/ngFive$
+
+// Creates a new Ang App in the directory ng5 and does styling and routing
+$ ng new ng5 --style=scss --routing
+
+When using restful JSON sometimes you have to execute CHROME with no security
+chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
+
+to serve Angular Package
+ng serve
+
+New Component
+maarset@S15057: ng generate component about
+
+delete a directory with FORCE
+rm -rf MyDir
+
+
+styles.scss
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+
+body{
+    background: none;
+    padding: 3em;
+    font-family: 'Raleway','Arial';
+    color: #fff;
+}
+ul {
+    list-style-type: none;
+    margin: 0 0 2em 0;
+    padding:0;
+}
+ul li {
+    display: inline;
+    margin-right: 30px;
+}
+ul li a {
+    font-size: 1.5em;
+}
+a {
+    color: #fff;
+    text-decoration:none;
+}*/
+
+
+   35  cd maarset
+   36  vi READMENOTES.TXT
+   37  cougar
+   38  sudo apt install alliance
+   39  ps
+   40  ps -a
+   41  top
+   42  df
+   43  ls -a
+   44  ls -d
+   45  ls
+   46  top
+   47  ls
+   48  tail READMENOTES.TXT
+   49  who
+   50  ytalk root
+   51  talk root
+   52  ytalk root
+   53  chat root
+   54  msg root
+   55  mesg root
+   56  mesg -v root
+   57  mesg -v y
+   58  logout
+   59  su root
+   60  su sudo
+   61  pwd
+   62  /
+   63  cd /
+   64  pwd
+   65  cd home
+   66  ls
+   67  cd maarset
+   68  ls -a
+   69  who
+   70  tail READMENOTES.TXT
+   71  sudo su
+   72  exit
+   73  who
+   74  sudo su
+   75  exit
+   76  links links https://cal-access.sos.ca.gov/
+   77  sudo apt install links
+   78  links https://cal-access.sos.ca.gov/
+   79  sudo apt install links
+   80  fget
+   81  get https://cal-access.sos.ca.gov/
+   82  fget https://cal-access.sos.ca.gov/
+   83  php fget https://cal-access.sos.ca.gov/
+   84  exit
+   85  w3m
+   86  sudo apt install w3m
+   87  w3m
+   88  install w3m
+   89  exit
+   90  cd home
+   91  pwd
+   92  ls
+   93  cd AngularCode
+   94  ll
+   95  cd ngFive
+   96  ll
+   97  pw
+   98  ps
+   99  top
+  100  ll
+  101  cd src
+  102  ll
+  103  vi index.html
+  104  cd app
+  105  ll
+  106  vi app.component.html
+  107  vi app.component.spec.ts
+  108  cd ..
+  109  ng generate component home
+  110  cd app
+  111  cd src
+  112  cd app
+  113  ll
+  114  cd home
+  115  ll
+  116  vi home.component.ts
+  117  vi home.component.spec.ts
+  118  cd ..
+  119  ng generate component about
+  120  ll /src/app
+  121  ll /src/app/
+  122  ll src/app/
+  123  ll src/app/about
+  124  code .
+  125  pwd
+  126  history
+
+RESTFUL NOTES
+
+[Route("{id:int}")] 
+/api/books/1
+
+http://localhost:55211/api/ComplaintsByDate/3477
+ [HttpGet("{id}")]
+        public string Get(int id)
+
+http://localhost:55211/api/Complaints/1-1-2014/7-1-2014/1
+[Route("{startdate}/{enddate}/{page}")]
+        
+        public String Get(String StartDate, String EndDate, System.Int32 Page)
+
+
+get myVar(): string {
+    return this._myVar;
+}
+set myVar(newmyVar: string) {
+    this._myVar = newmyVar;
+}
+
+
+Predator FOV 25
+Dom V3   FOV 30
+
+ <div class="col">
+    
+<p class="sm">Use this form below to search by date.</p>
+    
+	<ngb-datepicker #dp [(ngModel)]="model" name="StartDate"  (navigate)="date = $event.next"></ngb-datepicker>
+        
+<span>
+	<input  type="text" class="text" name="StartDate" placeholder="Start Date..." [(ngModel)]="startDateText"/>
+       {{ startDateText }} 
+</span><br/>
+      
+       
+	<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+       
+<span>
+	<input  type="text" class="text" name="EndDate" placeholder="End Date..." [(ngModel)]="endDateText"/>
+       {{ endDateText }} 
+</span><br/>
+      
+
+      
+	<input type="submit"  class="btn" [value]=" btnText" (click)="GetComplaintsByDate()"/>
+    
+  
+</div>
