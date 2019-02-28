@@ -21,6 +21,7 @@ maarset@S15057:~/AngularCode/ngFive$
 $ ng new ng5 --style=scss --routing
 
 When using restful JSON sometimes you have to execute CHROME with no security
+C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
 chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
 
 to serve Angular Package
