@@ -15,5 +15,13 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+
+  "proxies": [
+    {
+    "path": "/api",
+    "proxyUrl": "http://localhost:55211"  
+    }
+    ]
+
 }
