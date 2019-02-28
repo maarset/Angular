@@ -1,0 +1,153 @@
+.container {
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.form-group {
+    width: 100%;
+    padding: .2em;
+    padding-bottom: .2em;
+    }
+.col {
+    padding: .4em 1.3em;
+}
+.color-dark {
+    background: #2885C4;
+}
+.color-light {
+    background: #57B3F1;
+}
+input.txt {
+    border: 0;
+    padding: .5em;
+    width: 100%;
+    margin-bottom: 2em;
+}
+input.btn {
+    border: 0;
+    display:block;
+    padding:.5em 1em;
+    background: #A5F883;
+    color: #003A61;
+    margin-bottom: .5em;
+    cursor:pointer;
+}
+input.btnSm {
+    border: 0;
+    display:inline;
+    padding:.1em .5em;
+    background: #A5F883;
+    color: #003A61;
+    margin-bottom: .2em;
+    cursor:pointer;
+}
+.life-container {
+    background: #3FA0E1;
+    padding: .5em;
+    font-weight: bold;
+    cursor: pointer;
+    width: 20em;
+}
+.row {
+    width: 100%;
+}
+.control-label {
+    cursor: pointer;
+}
+.card {
+    color: #2885C4;
+    font-size: .8em;
+    width: 20em;
+    padding:.1em .1em;
+    padding-bottom: 0em;
+    padding-top: .0em;
+}
+/*
+.modal {
+    overflow-y:auto;
+    overflow: auto !important;
+  }
+*/
+  //modal
+  .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    //align-self: auto;
+    top: 250px;
+    bottom: 5px;
+   // height: 100%;
+    //bottom: 1em;
+    //margin: 0 auto;
+    //width: 700px;
+}
+.modal-header{
+    background-color:rgb(164, 197, 235);
+    padding:.1em .1em;
+    padding-bottom: 0em;
+    padding-top: .5em;
+}
+
+.form-label {
+    padding:.1em .1em;
+    padding-bottom: .5em;
+}
+
+.form-control {
+    padding:.1em .1em;
+    padding-bottom: .1em;
+    padding-top: .1em;
+}
+
+
+.modal-body {
+    //display: flex !important;
+    height: 100%;
+    width: 700px;
+    //padding:.1em .5em;
+    //padding-top: .5em;
+}
+
+.col-md-sm {
+    border-style: none;
+    border-color: #003A61;
+    padding:0em 0em;
+    padding-top: .5em;
+    align-self: auto;
+    width: 300em;
+}
+.col-md-4 {
+    border-style: none;
+    border-color: #003A61;
+    padding:0em 0em;
+    padding-top: .5em;
+}
+
+.col-md-12
+{
+    border-style: none;
+    border-color: red;
+}
+.modal-title {
+    padding:0em 0em;
+    padding-top: .5em;
+}
+.header {
+    background-color: rgb(189, 189, 196);
+    padding: .1em;
+    width: 700px;
+}
+.modal-content {
+    overflow:hidden; 
+    color:  blue;
+    width:  700px;
+   // font-size: .6em;
+}
+
+.ng-valid[required], .ng-valid.ng-valid.required {
+    border-left: 5px solid green
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}

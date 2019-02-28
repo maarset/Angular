@@ -1,0 +1,390 @@
+<article class='container'>
+
+  <form #searchForm='ngForm'><br>
+    <div class="form-group" *ngIf='this.model.rowsReturned <= 0' > 
+        {{newComplaintIsOpen}}{{editComplaintIsOpen}}
+        <div *ngIf='(hideSearchForm == false)'>
+        <div *ngIf='(newComplaintIsOpen==false)' class="form-group">   
+            <div class="input-group">
+                <input class="form-control" placeholder="Start Date..." id="StartDate" name="StartDate" [(ngModel)]="model.startDate" ngbDatepicker #startDate="ngbDatepicker" required >
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="startDate.toggle()" type="button"><img src="../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/></button>
+                    </div>      
+            </div>
+            <div class="input-group">
+                <input class="form-control" placeholder="End Date..." id="EndDate" name="EndDate" [(ngModel)]="model.endDate" ngbDatepicker #endDate="ngbDatepicker" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="endDate.toggle()" type="button"><img src="../../assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/></button>
+                    </div>
+            </div>
+        </div>
+        <div *ngIf='newComplaintIsOpen==false' class="form-group">
+            <label class="control-label" for="county">County</label>
+            <select class="form-control" id='county' name='county'  [(ngModel)] = "model.county" >
+            <option></option>
+            <option *ngFor='let c of counties' [value]="c.countyCode" > {{c.countyName}}</option>
+            </select> 
+            <label class="control-label" for="username">User</label>
+            <select class="form-control" id='username' name='username' [(ngModel)] = "model.username" >
+            <option></option>
+            <option *ngFor='let u of users' [value]="u.userId" >{{u.userFirstName}} {{u.userLastName}}</option>
+            </select> 
+            
+            <button  type="submit" class="btn btn-primary"  [disabled]='!searchForm.form.valid' (click)="GetComplaintsByDate()">{{btnText}}</button>
+            <button  type="submit" class="btn btn-primary"  (click)="NewComplaint()">New Complaint</button>   
+        </div>   
+    </div>
+    </div>
+    
+<div class="form-group" *ngIf='this.model.rowsReturned > 0' >
+  <div class="card">
+    Total Results: {{this.model.rowsReturned}}<br>
+    Election Complaints Result Page ( {{ this.model.currentPage }} )<br>
+    Total page count ( {{ this.model.rowsReturned/10 | number:'1.0-0' }}) <br>
+    
+  </div>
+
+  
+    <input class="btn btnSm" type="submit" [disabled] = " this.model.currentPage == 1" id="prevBtn" class="btnSm" value="<" (click)="GetComplaintsByDate($event)">
+    <input class="btn btnSm" type="submit" [disabled] = " this.model.currentPageSize < 9 || this.model.rowsReturned <= 10 " id="nextBtn" class="btnSm" value=">" (click)="GetComplaintsByDate($event)">
+    <select class="form-control" id='sort' name='sort' [(ngModel)] = "model.sort" (change) = "GetComplaintsByDate()">
+            <option value="complaintID">ID</option>
+            <option value="complaintNumber">Complaint Number</option> 
+            <option value="name">Name</option>
+            <option value="createdDate">Created Date</option>  
+    </select>  
+    <button  type="submit" class="btn btn-primary"  (click)="NewSearch(true)">New Search</button>
+    <button  type="submit" class="btn btn-primary"  (click)="NewSearchSave(true)">New Search Save</button>
+<!--
+    <button type="submit" class="form-control" [disabled] = " this.model.currentPage == 1" id="navPrev" name="navPrev"  [(ngModel)] = "model.navPrev" (click)="GetComplaintsByDate()"><</button>
+    <button type="submit" class="form-control" [disabled] =  " this.model.currentPageSize < 9 || this.model.rowsReturned <= 10 " id="navNext" name="navNext" [(ngModel)] = "model.navNext" (click)="GetComplaintsByDate()">></button>
+-->
+    <select [(value)]="selectedValue" (change)="GetComplaintsByDate($event)" [hidden] = true>
+      <option *ngFor="let p of pageList" [ngValue]="c">{{p}}</option>
+    </select>
+    
+      <table *ngIf='newComplaintIsOpen==false || editComplaintIsOpen==false' class='table table-striped'>
+          <tr>
+            <th><a (click)="getComplaintsByDateSort($event)">ID</a></th>
+            <th (click)="getComplaintsByDateSort('complaintNumber')">Complaint Number</th>
+            <th (click)="getComplaintsByDateSort('name')">Complaint Name</th>
+            <th (click)="getComplaintsByDateSort('createdDate')">Date Created</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <TR class="control-label" *ngFor="let complaint of ObjComplaintList"  >
+            <td>{{ complaint.complaintID }} </td>
+            <td>{{ complaint.complaintNumber }} </td>
+            <td>{{ complaint.name }}</td>
+            <td>{{ complaint.createdDate | date: 'MM/dd/yyyy' }}-{{ complaint.namePoll}}</td>
+            <td (click)='ViewComplaintModalByID(complaint,true)'> view</td>
+            <td (click)='EditComplaintModalByID(complaint,true)'> edit</td>
+            <td (click)='NewComplaint(complaint)'> Edit</td>
+          </TR>
+      </table>
+</div>
+
+<div class="form-group" *ngIf='this.model.rowsReturned == 0' >
+        <div class="card">
+          Total Results: {{this.model.rowsReturned}}<br>
+        </div>
+</div>
+
+<!-- Right Here we are opening the complaint-form.component to create a new complaint -->
+<div style='float:left' *ngIf="newComplaintIsOpen">
+        <!--Detail component to create new COmplaint--> 
+        <!--<app-complaint-form [complaint]= 'selectedComplaint' ></app-complaint-form>-->
+        <app-complaint-form [complaint]="clickedComplaint"></app-complaint-form>
+        <!--<app-event-details [event]="clickedEvent"></app-event-details>-->
+</div>
+
+<!-- Right Here we are opening the complaint-edit.component to edit an existing complaint -->
+<!--
+<div style='float:left' *ngIf="editComplaintIsOpen">
+        <!--Detail component to create new COmplaint--> 
+       
+        <!--<app-complaint-edit (messageEvent)="receiveMessage($event)"></app-complaint-edit>-->
+        <app-complaint-edit  (messageEventEdit)="receiveMessage($event)"  [childMessage]="parentMessage"></app-complaint-edit>
+</div>
+-->
+
+</form>
+ 
+    <!-- BEGIN MODAL -->
+        <div id="mdlView" *ngIf='ObjComplaintListSelected.length > 0'  class="modal fade" role="dialog" [ngStyle]="{'display': mdlViewIsOpen ? 'block' : 'none', 'opacity': 1}">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Complaint NUMBER: {{ObjComplaintListSelected[0].complaintNumber}}</h4>
+                </div>
+                <div class="modal-body">
+                <!-- {{ObjComplaintListSelected[0] | json }} -->
+                <section>
+                       <div class="row">
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">                 
+                                    <dt>Complaint ID</dt>
+                                    <dd>{{ObjComplaintListSelected[0].complaintID }}</dd>
+                                    <dt>Complaint Number</dt>
+                                    <dd>{{ObjComplaintListSelected[0].complaintNumber }}</dd>
+                                    <dt>Status Code</dt>
+                                    <dd>{{ObjComplaintListSelected[0].statusCode }}</dd>
+                                    <dt>County Code</dt> 
+                                    <dd>{{ObjComplaintListSelected[0].countyCode }}</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">
+                    
+                                    <dt>Category ID</dt>
+                                    <dd>{{ObjComplaintListSelected[0].categoryID }}</dd>
+                                    <dt>Priority ID</dt>
+                                    <dd>{{ObjComplaintListSelected[0].priorityID }}</dd>
+                                    <dt>Assigned Staff</dt>
+                                    <dd>{{ObjComplaintListSelected[0].assignedStaff }}</dd>
+                                    <dt>Name</dt> 
+                                    <dd>{{ObjComplaintListSelected[0].name }}</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">
+                    
+                                    <dt>Phone</dt>
+                                    <dd>{{ObjComplaintListSelected[0].phone }}</dd>
+                                    <dt>Address</dt>
+                                    <dd>{{ObjComplaintListSelected[0].address }} {{ObjComplaintListSelected[0].city }} {{ObjComplaintListSelected[0].stateCode }}{{ObjComplaintListSelected[0].zip }}</dd>
+                                    <dt>Taken By</dt>
+                                    <dd>{{ObjComplaintListSelected[0].takenBy }}</dd>
+                                    <dt>Station Number</dt> 
+                                    <dd>{{ObjComplaintListSelected[0].stationNumber }}</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-4">
+                                    <dl class="dl-horizontal">
+                                        <dt>detailedMessage</dt>
+                                        <dd>{{ObjComplaintListSelected[0].detailedMessage | slice:0:20 }}...
+                                        <img src="../../assets/images/text.PNG" alt='' title='{{ObjComplaintListSelected[0].detailedMessage}}'>
+                                        </dd>
+                                        <dt>Action Message</dt>
+                                        <dd>{{ObjComplaintListSelected[0].actionMessage | slice:0:20 }}...
+                                            <img src="../../assets/images/text.PNG" alt='' title='{{ObjComplaintListSelected[0].actionMessage}}'>
+                                        </dd>
+                                        <dt>Fax Comments</dt>
+                                        <dd>{{ObjComplaintListSelected[0].faxComments | slice:0:20 }}...
+                                            <img *ngIf='ObjComplaintListSelected[0].faxComments' src="../../assets/images/text.PNG" alt='' title='{{ObjComplaintListSelected[0].faxComments}}'>
+                                        </dd>
+                                        
+                                    </dl>
+                                </div>
+                        </div>
+                    
+                        <div class="row">
+                            
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">
+                                    <dt>Created Date</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].createdDate }}</dd>
+                                    <dt>Assigned Date</dt>
+                                    <dd>{{ ObjComplaintListSelected[0].assignedDate }}</dd>
+                                    <dt>Resolved Date</dt>
+                                    <dd>{{ ObjComplaintListSelected[0].resolvedDate }}</dd>
+                                    
+                                </dl>
+                            </div>
+                            <div class="col-md-4">
+                                <dl class="dl-horizontal">
+                                    <dt>Reviewed By</dt>
+                                    <dd>{{ ObjComplaintListSelected[0].reviewedBy }}</dd>
+                                    <dt>Complaint # Seq</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].complaintNumSeq }}</dd>
+                                </dl>
+                            </div>
+
+                            <div class="col-md-4"> 
+                                    <dl class="dl-horizontal">
+                                    <dt>Name Poll</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].namePoll }}</dd>
+                                    <dt>Address Poll</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].addressPoll }}</dd>
+                                    </dl>
+                            </div>
+                          
+                            <div class="col-md-4">
+                                    
+                                    <dt>City Poll</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].cityPoll }}</dd>
+                                    <dt>State Poll</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].stateCodePoll }}</dd>
+                                    
+                                    
+                            </div>
+                            <div class="col-md-4">
+                                    <dt>Zip Poll</dt> 
+                                    <dd>{{ ObjComplaintListSelected[0].zipPoll }}</dd>
+                                `   <dt>Email</dt> 
+                                <dd>{{ ObjComplaintListSelected[0].email }}</dd>
+                            </div>
+
+
+                        </div>
+                    
+                
+                </section>
+                </div>
+                <div class="modal-footer" align="right">
+                <!--<button type="button" id="btnOK" class="btn btn-success" (click)="btnOKClick()"><i class="fa fa-check fa-fw"></i> Ok</button>-->
+                <button type="button" id="btnCloseView Modal" class="btn btn-danger" (click)="openModalView(false)"><i class="fa fa-times fa-fw"></i> Close</button>
+                <!--<button type="button" id="btnUpdate" class="btn btn-success" (click)="LoadComplaint(ObjComplaintListSelected[0].complaintID)">Update</button>-->
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- END MODAL -->
+
+        <!-- BEGIN MODAL -->
+        <div id="mdlEdit" *ngIf='selectedComplaintEdit'  class="modal fade" role="dialog" [ngStyle]="{'display': mdlEditIsOpen ? 'block' : 'none', 'opacity': 1 }"   style="overflow-y: scroll; max-height:800px;  margin-top: 0px; margin-bottom:0px; position: relative; width: 700px;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                        <h5 class="modal-title">Complaint Number: {{selectedComplaintEdit.complaintNumber}}<BR>
+                            Complaint Tracking#: {{selectedComplaintEdit.complaintID}}<BR>
+                            Date: {{selectedComplaintEdit.createdDate | date}} - 
+                            Time: {{selectedComplaintEdit.createdDate | date:'shortTime'}}<BR>
+                            </h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <B>Taken By:</B> {{selectedComplaintEdit.takenBy}}<BR>
+                                <B>Reviewed By:</B> {{selectedComplaintEdit.reviewedBy}}<BR>
+                                <B>Station Number:</B> {{selectedComplaintEdit.stationNumber}}<BR>
+                               
+                                
+                            </div>
+                        </div>
+                    
+                        </div>
+                
+                        <!-- This might be too big for a modal since we have to scroll -->
+                        <!-- Copying this code to  -->
+                        <div class="modal-body">
+                            <section>
+                                    <form  #complaintForm='ngForm'>   
+                                            <div class="form-group">
+                                                    <label class="header">Initial Complaint Information</label> 
+                                                    
+                                            </div>  
+                                            <div class="form-inline">
+                                                    <label class="form-label" for='categoryID'>Select Category</label>
+                                                    <select class="form-control form-control-sm"  id='categoryID' name='categoryID'  [(ngModel)] = "selectedComplaintEdit.categoryID"  >
+                                                      <option *ngFor='let c of categories' [value]="c.categoryID" > {{c.categoryDesc}}</option>
+                                                    </select>     
+                                             
+                                                <label class="form-label" for='name'>Name:</label>
+                                                <input  type="text" id="name" class='form-control'  name="name"  [(ngModel)]='selectedComplaintEdit.name'  />
+                                            </div>
+                                            <div class="form-inline"> 
+                                                    <label class="form-label" for='name'>Phone:</label>
+                                                    <input  type="text" id="phone" class='form-control'  name="phone"  [(ngModel)]='selectedComplaintEdit.phone'  />
+                                                    <label class="form-label" for='countyCode'>County</label>
+                                                    <select class="form-control form-control-sm" value="County Code"  id='countyCode' name='countyCode'  [(ngModel)] = "selectedComplaintEdit.countyCode"  >
+                                                <option *ngFor='let c of counties' [value]="c.countyCode"  > {{c.countyName}}</option>
+                                            </select> 
+                                            </div>
+                                            
+                                            <div class="form-group"> 
+                                                    <label for='name'>Address:</label>
+                                                    <input  type="text" id="address" class='form-control'  name="address"  [(ngModel)]='selectedComplaintEdit.address'  />
+                                            </div>
+
+                                            <div class="form-inline">
+                                                    <label for='city'>City</label>
+                                                    <input  type="text" class='form-control' name="city" id="city"  [(ngModel)]="selectedComplaintEdit.city"/>
+                                                    <label for='stateCode'>State</label>
+                                                    <input  type="text" class='form-control text'  name="stateCode" id="stateCode"  [(ngModel)]="selectedComplaintEdit.stateCode" />
+                                                    <label for='zip'>Zip</label>
+                                                    <input  type="text" class='form-control'  name="zip" id="zip"   [(ngModel)]="selectedComplaintEdit.zip" />
+                                            </div>
+
+                                            <div class="form-group"> 
+                                                    <label for='name'>Email:</label>
+                                                    <input  type="text" id="email" class='form-control'  name="email"  [(ngModel)]='selectedComplaintEdit.email'  />
+                                            </div>
+                                            
+                                            <div class="form-group"> 
+                                                    <label for='name'>Details:</label>
+                                                    <textarea cols="60" rows="2"  type="text"   id="detailedMessage" class='form-control'  name="detailedMessage"  [(ngModel)]='selectedComplaintEdit.detailedMessage'  ></textarea>
+                                            </div>
+                                    
+                                            <div class="form-group">
+                                                    <label class="header">Polling Location</label> 
+                                            </div>
+
+                                            <div class="form-inline"> 
+                                                    <label for='namePoll'>Name Poll:</label>
+                                                    <input  type="text" id="namePoll" class='form-control' name="namePoll"  [(ngModel)]='selectedComplaintEdit.namePoll'  />
+                                            
+                                                    <label for='addressPoll'>Address Poll:</label>
+                                                    <input  type="text" class='form-control'  name="addressPoll" id="addressPoll"  [(ngModel)]="selectedComplaintEdit.addressPoll"  />
+                                            </div>
+                                            <div class="form-inline">
+                                                    <label for='cityPoll'>City Poll:</label>
+                                                    <input  type="text" class='form-control' name="cityPoll" id="cityPoll"  [(ngModel)]="selectedComplaintEdit.cityPoll" />
+                                                    <label for='stateCodePoll'>State Poll:</label>
+                                                    <input  type="text" class='form-control text'  name="stateCodePoll" id="stateCodePoll"   [(ngModel)]="selectedComplaintEdit.stateCodePoll" />
+                                                    <label for='zipPoll'>Zip Poll:</label>
+                                                    <input  type="text" class='form-control'  name="zipPoll" id="zipPoll"   [(ngModel)]="selectedComplaintEdit.zipPoll" />
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="header">Admin Information</label> 
+                                            </div>
+                                            <div class="form-inline">
+                                                    <label for='complaintID'>Complaint #</label>
+                                                    <input  type="text" class='form-control' readonly name="complaintID" id="complaintID"  [(ngModel)]="selectedComplaintEdit.complaintID"/>
+                                                    
+                                                    <label class="control-label" for="assignedStaffUID">Assigned Staff</label>
+                                                    <select class="form-control" id='assignedStaffUID' name='assignedStaffUID' [(ngModel)] = "selectedComplaintEdit.assignedStaffUID" >
+                                                    <option></option>
+                                                    <option *ngFor='let u of users' [value]="u.userId">{{u.userFirstName}} {{u.userLastName}}</option>
+                                                    </select>                                                                           
+                                            </div>
+                                            <div class="form-inline">
+                                                    <label class="control-label" for="statusCode">Status</label>
+                                                    <select class="form-control" id='statusCode' name='statusCode' [(ngModel)] = "selectedComplaintEdit.statusCode" >
+                                                            <option></option>
+                                                            <option *ngFor='let s of statuses' [value]="s.statusCode" >{{s.statusDesc}}</option>
+                                                            </select> 
+                                            </div>
+                                            <div class="form-inline">
+                                                    <label for='assignedDate'>Assigned</label>
+                                                    <input  type="text" class='form-control'  name="assignedDate" id="assignedDate"  [(ngModel)]="selectedComplaintEdit.assignedDate"/>
+                                            </div>
+
+                                            <div class="form-inline">
+                                                    <label for='resolvedDate'>Resolved</label>
+                                                    <input  type="text" class='form-control'  name="resolvedDate" id="resolvedDate"  [(ngModel)]="selectedComplaintEdit.resolvedDate"/>
+                                            </div>
+                                            <div class="form-group"> 
+                                                    <label for='actionMessage'>Action Taken:</label>
+                                                    <textarea cols="60" rows="2"  type="text"   id="actionMessage" class='form-control'  name="actionMessage"  [(ngModel)]='selectedComplaintEdit.actionMessage'  ></textarea>
+                                            </div>
+                                            <div class="form-group"> 
+                                                    <label for='faxComments'>Staff (Email/Fax) Comments:</label>
+                                                    <textarea cols="60" rows="2"  type="text"   id="faxComments" class='form-control'  name="faxComments"  [(ngModel)]='selectedComplaintEdit.faxComments'  ></textarea>
+                                            </div>
+                                      </form>
+                            </section>
+                        </div>
+                        <div class="modal-footer" align="left">
+                                <!--<button type="button" id="btnOK" class="btn btn-success" (click)="btnOKClick()"><i class="fa fa-check fa-fw"></i> Ok</button>-->
+                                <button type="button" id="btnCloseEditModal" class="btn btn-danger" (click)="openModalEdit(false)"><i class="fa fa-times fa-fw"></i> Close</button>
+                                <button type="button" id="btnUpdate" class="btn btn-success" (click)="UpdateComplaint(true)">Update</button>
+                                </div>
+                    </div>
+                </div>
+                
+        </div>
+        <!-- END MODAL-->
+        
+</article>
+
+ 

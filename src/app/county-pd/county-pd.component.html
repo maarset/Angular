@@ -1,0 +1,6 @@
+<p>
+  county-pd works!
+  <select [(value)]="selectedValue" item-width="50" (change)="GetComplaintsByDate($event)" [hidden] = false>
+      <option *ngFor="let c of CountyPulldown" [ngValue]="c">{{c}}</option>
+    </select>
+</p>

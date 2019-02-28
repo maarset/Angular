@@ -1,0 +1,82 @@
+.container {
+    display: grid;
+    //grid-template-columns: 100% auto;
+}
+.col {
+    padding: .4em 1.3em;
+}
+.color-dark {
+    background: #2885C4;
+}
+.color-light {
+    background: #57B3F1;
+}
+input.txt {
+    border: 0;
+    padding: 5em;
+    width: 80%;
+    margin-bottom: 2em;
+}
+input.btn {
+    border: 0;
+    display:block;
+    padding:.5em 1em;
+    background: #A5F883;
+    color: #003A61;
+    margin-bottom: .5em;
+    cursor:pointer;
+}
+input.btnSm {
+    border: 0;
+    display:inline;
+    padding:.1em .5em;
+    background: #A5F883;
+    color: #003A61;
+    margin-bottom: .2em;
+    cursor:pointer;
+}
+.life-container {
+    background: #3FA0E1;
+    padding: .5em;
+    font-weight: bold;
+    font-size: .6em;
+    cursor: pointer;
+    width: 20em;
+}
+.content {
+    width: 800px;
+    border: 4px solid whitesmoke;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.content img {
+    margin-right: 15px;
+    float: left;
+}
+
+
+  //modal
+  .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 20%;
+    margin: 0 auto;
+}
+.modal-header{
+    background-color:rgb(164, 197, 235);
+}
+.modal-content {
+    overflow:hidden;
+    color:  blue;
+    font-size: .8em;
+}
+
+.ng-valid[required], .ng-valid.ng-valid.required {
+    border-left: 5px solid green
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}

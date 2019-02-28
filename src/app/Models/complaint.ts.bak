@@ -1,0 +1,335 @@
+export class Complaint {
+    
+    complaintID: number;
+    electionID: number;
+    complaintNumber: string;
+    statusCode: string;
+    countyCode: string;
+    categoryID: number;
+    priorityID: number;
+    assignedStaffUID: string;
+    assignedStaff: string;
+    name: string;
+    phone: string;
+    address: string;
+    city: string;
+    stateCode: string;
+    zip: string;
+    takenBy: string;
+    stationNumber: string;
+    detailedMessage: string;
+    actionMessage: string;
+    faxComments: string;
+    createdDate: string;
+    assignedDate: string;
+    resolvedDate: string;
+    complaintNumSeq: number;
+    reviewedBy: string;
+    language: string;
+    voted: number;
+    namePoll: string;
+    addressPoll: string;
+    cityPoll: string;
+    stateCodePoll: string;
+    zipPoll: string;
+    email: string;
+    rowsReturned: number;
+
+  
+
+    
+/*
+    get complaintID(): number {
+        return this._complaintID;
+    }
+    set complaintID( newcomplaintID: number) {
+        this._complaintID = newcomplaintID;
+    }
+
+    get electionID(): number {
+        return this._ElectionID;
+    }
+    set electionID( newElectionID: number) {
+        this._ElectionID = newElectionID;
+    }
+
+    get complaintNumber(): string {
+        return this._ComplaintNumber;
+    }
+    set complaintNumber( newComplaintNumber: string) {
+        this._ComplaintNumber = newComplaintNumber;
+    }
+
+    get statusCode(): string {
+        return this._StatusCode;
+    }
+    set statusCode( newStatusCode: string) {
+        this._StatusCode = newStatusCode;
+    }
+
+    get countyCode(): string {
+        return this._CountyCode;
+    }
+    set countyCode(newCountyCode: string) {
+        this._CountyCode = newCountyCode;
+    }
+
+    get categoryID(): number {
+        return this._CategoryID;
+    }
+    set categoryID(newCategoryID: number) {
+        this._CategoryID = newCategoryID;
+    }
+    
+   
+    get priorityID(): number {
+        return this._PriorityID;
+    }
+    set priorityID(newPriorityID: number) {
+        this._PriorityID = newPriorityID;
+    }
+    
+    get assignedStaffUID(): string {
+        return this._AssignedStaffUID;
+    }
+    set assignedStaffUID(newAssignedStaffUID: string) {
+        this._AssignedStaffUID = newAssignedStaffUID;
+    }
+    
+    
+    get name(): string {
+        return this._Name;
+    }
+    set name(newName: string) {
+        this._Name = newName;
+    }
+    
+    
+    get phone(): string {
+        return this._Phone;
+    }
+    set phone(newPhone: string) {
+        this._Phone = newPhone;
+    }
+    
+    
+    get address(): string {
+        return this._Address;
+    }
+    set address(newAddress: string) {
+        this._Address = newAddress;
+    }
+    
+    get city(): string {
+        return this._City;
+    }
+    set city(newCity: string) {
+        this._City = newCity;
+    }
+    
+    
+    get stateCode(): string {
+        return this._StateCode;
+    }
+    set stateCode(newStateCode: string) {
+        this._StateCode = newStateCode;
+    }
+    
+    get zip(): string {
+        return this._Zip;
+    }
+    set zip(newZip: string) {
+        this._Zip = newZip;
+    }
+    
+    
+    get takenBy(): string {
+        return this._TakenBy;
+    }
+    set takenBy(newTakenBy: string) {
+        this._TakenBy = newTakenBy;
+    }
+    
+ 
+    get stationNumber(): string {
+        return this._StationNumber;
+    }
+    set stationNumber(newStationNumber: string) {
+        this._StationNumber = newStationNumber;
+    }
+    
+
+    get detailedMessage(): string {
+        return this._DetailedMessage;
+    }
+    set detailedMessage(newDetailedMessage: string) {
+        this._DetailedMessage = newDetailedMessage;
+    }
+    
+   
+    get actionMessage(): string {
+        return this._ActionMessage;
+    }
+    set actionMessage(newActionMessage: string) {
+        this._ActionMessage = newActionMessage;
+    }
+    
+  
+    get faxComments(): string {
+        return this._FaxComments;
+    }
+    set faxComments(newFaxComments: string) {
+        this._FaxComments = newFaxComments;
+    }
+    
+  
+    get createdDate(): string {
+        return this._CreatedDate;
+    }
+    set createdDate(newCreatedDate: string) {
+        this._CreatedDate = newCreatedDate;
+    }
+    
+    get assignedDate(): string {
+        return this._AssignedDate;
+    }
+    set assignedDate(newAssignedDate: string) {
+        this._AssignedDate = newAssignedDate;
+    }
+    
+ 
+    get resolvedDate(): string {
+        return this._ResolvedDate;
+    }
+    set resolvedDate(newResolvedDate: string) {
+        this._ResolvedDate = newResolvedDate;
+    }
+    
+    get complaintNumSeq(): number {
+        return this._ComplaintNumSeq;
+    }
+    set complaintNumSeq(newComplaintNumSeq: number) {
+        this._ComplaintNumSeq = newComplaintNumSeq;
+    }
+    
+    
+    get reviewedBy(): string {
+        return this._ReviewedBy;
+    }
+    set reviewedBy(newReviewedBy: string) {
+        this._ReviewedBy = newReviewedBy;
+    }
+    */
+   /*
+    get namePoll(): string {
+        return this._NamePoll;
+    }
+    set namePoll(newNamePoll: string) {
+        this._NamePoll = newNamePoll;
+    }
+    
+    
+    get addressPoll(): string {
+        return this._AddressPoll;
+    }
+    set addressPoll(newAddressPoll: string) {
+        this._AddressPoll = newAddressPoll;
+    }
+    
+
+    get cityPoll(): string {
+        return this._CityPoll;
+    }
+    set cityPoll(newCityPoll: string) {
+        this._CityPoll = newCityPoll;
+    }
+    
+    
+    get stateCodePoll(): string {
+        return this._StateCodePoll;
+    }
+    set stateCodePoll(newStateCodePoll: string) {
+        this._StateCodePoll = newStateCodePoll;
+    }
+    
+    
+    get zipPoll(): string {
+        return this._ZipPoll;
+    }
+    set zipPoll(newZipPoll: string) {
+        this._ZipPoll = newZipPoll;
+    }
+    
+    
+    get language(): string {
+        return this._Language;
+    }
+    set language(newLanguage: string) {
+        this._Language = newLanguage;
+    }
+    
+    
+    get voted(): number {
+        return this._Voted;
+    }
+    set voted(newVoted: number) {
+        this._Voted = newVoted;
+    }
+    
+    
+    get email(): string {
+        return this._Email;
+    }
+    set email(newEmail: string) {
+        this._Email = newEmail;
+    }
+    */
+   /*
+   get rowsReturned(): number {
+    return this._RowsReturned;
+    }
+    set rowsReturned(newRowsReturned: number) {
+        this._RowsReturned = newRowsReturned;
+    }
+    */
+    
+    constructor(    complaintID: number, electionID: number, complaintNumber: string, statusCode: string, countyCode: string, categoryID: number, priorityID: number, assignedStaffUID: string,assignedStaff:string, name: string, phone: string, address: string, city: string, stateCode: string, zip: string, takenBy: string, stationNumber: string, detailedMessage: string, actionMessage: string, faxComments: string, createdDate: string, assignedDate: string, resolvedDate: string, complaintNumSeq: number, reviewedBy: string,language:string, voted:number,namePoll: string,addressPoll: string,cityPoll: string,stateCodePoll: string,zipPoll: string, email: string, rowsReturned: number) 
+    {            
+        this.complaintID = complaintID;
+        this.electionID = electionID;
+        this.complaintNumber = complaintNumber;
+        this.statusCode = statusCode;
+        this.countyCode = countyCode;
+        this.categoryID = categoryID;
+        this.priorityID = priorityID;
+        this.assignedStaffUID = assignedStaffUID;
+        this.assignedStaff = assignedStaff;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.stateCode = stateCode;
+        this.zip = zip;
+        this.takenBy = takenBy;
+        this.stationNumber = stationNumber;
+        this.detailedMessage = detailedMessage;
+        this.actionMessage = actionMessage;
+        this.faxComments = faxComments;
+        this.createdDate = createdDate;
+        this.assignedDate = assignedDate;
+        this.resolvedDate = resolvedDate;
+        this.complaintNumSeq = complaintNumSeq;
+        this.reviewedBy = reviewedBy;
+       
+        this.language = language;
+        this.voted = voted;
+        this.namePoll =      namePoll;
+        this.addressPoll =   addressPoll;
+        this.cityPoll =      cityPoll;
+        this.stateCodePoll = stateCodePoll;
+        this.zipPoll =       zipPoll;
+        this.email =         email;
+        this.rowsReturned = rowsReturned;
+         }
+         
+}

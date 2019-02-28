@@ -1,0 +1,35 @@
+    <!--
+      <div ng-controller="Hello">
+        <p>The ComplaintID is {{ JSONComplaintID }}</p>
+        <p>The ComplaintNumber is {{ JSONComplaintNumber }}</p>
+      </div>
+-->
+<div class="container color-dark">
+    <div class="col">
+      <p>Election Complaints</p>
+    </div>
+    <div class="col">
+      <p>Complaint Count {{complaintCount + 1}}</p>
+    </div>
+  </div>
+<div class="container color-light">
+  
+   
+
+  <p class="life-container" *ngFor="let complaint of ObjComplaintList;  let i = index" (click)="removeItem(i)" >
+     {{ complaint.ComplaintID }} 
+        {{ complaint.ElectionID }} 
+         {{ complaint.ComplaintNumber }} 
+      {{ complaint.StatusCode }}
+
+    </p>
+  
+</div>
+
+
+
+  =
+
+
+
+
