@@ -13,6 +13,7 @@ import { SearchModule }  from '../search/search.module';
 })
 export class ImdbComponent implements OnInit {
   TitleText: string;
+  TypeText: string;
   MessageClient: string;
   btnTitleText: string = 'Search';
   pageNum: string;
@@ -86,8 +87,17 @@ export class ImdbComponent implements OnInit {
     this.ObjMovieList = [];
     this.pageNum = (<HTMLTextAreaElement>event.target).value;
     this.TitleText = this.TitleText.replace(' ','+');
-    console.log('http://www.omdbapi.com/?apikey=39261c6a&s='+this.TitleText+'&page='+this.currentPage);
-          this.http.get('http://www.omdbapi.com/?apikey=39261c6a&s='+this.TitleText+'&page='+this.currentPage).subscribe(data => {
+    
+    if (this.TypeText == null)
+    {
+      this.TypeText = "movie";
+    }
+    else
+    {
+      this.TypeText = this.TypeText.replace(' ','+');
+    }
+    console.log('http://www.omdbapi.com/?apikey=39261c6a&type='+this.TypeText+'&s='+this.TitleText+'&page='+this.currentPage);
+          this.http.get('http://www.omdbapi.com/?apikey=39261c6a&type='+this.TypeText+'&s='+this.TitleText+'&page='+this.currentPage).subscribe(data => {
         
         console.log( data );
         console.log(data['Response']);

@@ -4,10 +4,14 @@
           <p class="sm">Use this form below to search by Title.</p>
           
               <span><input class="form-control" class="text" name="Title" placeholder="Title..." [(ngModel)]="TitleText" required #Title='ngModel'/>
-             {{ TitleText }} </span><br/>
-            
+             {{ TitleText }} </span>
+            <select class="form-control" class="select" name="type" [(ngModel)]="TypeText"  #Title='ngModel'>
+              <option value="movie" selected>movie</option>
+              <option value="series">series</option>
+              <option value="episode">episode</option>
+            </select>
       
-            <button  type="submit" class="btn btn-primary"  [disabled]='!searchForm.form.valid' (click)="SearchMoviesByTitle()">Search</button>
+            <button  type="submit" class="btn btn-primary" style="height:20eu" [disabled]='!searchForm.form.valid' (click)="SearchMoviesByTitle()">Search</button>
             {{ MessageClient }}
         </div>
       </form>
