@@ -206,3 +206,10 @@ Dom V3   FOV 30
     
   
 </div>
+
+
+GIT NOTES 
+git status // finds files that need to be checked in.
+git add "MyFile.cs"
+git commit -m "Adding notes to file I am checking in"
+git push   //moves files to git hub
