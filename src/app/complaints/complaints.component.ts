@@ -2,14 +2,18 @@ import { Component,Input, OnInit,ViewChild, EventEmitter,Output  } from '@angula
 import { Complaint } from '../Models/complaint';   //importing complaint.ts custom object. Don't have to use app.module.ts
 import { User } from '../Models/user';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+
 import { Http, Response } from '@angular/http';
 import {CommonModule} from '@angular/common';
 import { Observable } from 'rxjs/Observable';
+import {throwError} from 'rxjs';
 import { County } from '../Models/county';
 import { Status } from '../Models/status';
 import { Priority } from '../Models/priority';
 import { Category } from '../Models/category';
 import { ComplaintFormModel } from '../Models/complaint-form-search-model';
+import { ComplaintsService } from '../Service/complaints.service';
+
 //import { ComplaintEditComponent } from '../complaints/complaint-edit/complaint-edit.component'
 import 'rxjs/Rx';
 
@@ -32,14 +36,15 @@ import 'rxjs/Rx';
   selector: 'app-complaints',
  // selector: 'ngbd-datepicker-basic',
   templateUrl: './complaints.component.html',
-  styleUrls: ['./complaints.component.scss']
+  styleUrls: ['./complaints.component.scss'],
+  providers: [ ComplaintsService]
 })
 
 export class ComplaintsComponent implements OnInit {
   
   @Output() complaintClicked = new EventEmitter<Complaint>();
   //public complaintCount: number = 0;
-  
+ // Service:ComplaintsService;
   model:ComplaintFormModel;
   //modelEdit:ComplaintEditComponent;
   ObjComplaintList:Complaint[] = [];
@@ -75,8 +80,9 @@ export class ComplaintsComponent implements OnInit {
   public priorities; //pulldown for priorities
   public categories;
  //npm install --save rxjs-compat   // For compatibility
-  constructor(private http: HttpClient) { }
-
+  //constructor(private http: HttpClient) { }
+  //constructor(private service: ComplaintsService) { }
+  constructor(private complaintService: ComplaintsService,private http: HttpClient) { }
  
  
   ngOnInit() {
@@ -94,7 +100,7 @@ export class ComplaintsComponent implements OnInit {
     this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
   }
 */
-
+/*
   receiveMessage($event) {
     this.ComplaintNew = $event;
     if ($event == false)
@@ -103,7 +109,7 @@ export class ComplaintsComponent implements OnInit {
     }
     console.log('FROM CHILD IN PARENT = '+this.ComplaintNew.name);
   }
-
+*/
   NewComplaint(complaint: Complaint)
   {
     this.complaintClicked.emit(complaint);
@@ -158,23 +164,12 @@ export class ComplaintsComponent implements OnInit {
 
   GetCategoriesList()
   {
-   // this.http.get<County[]>('http://localhost:55211/api/Category/get').subscribe(data => {
-    this.http.get<Category[]>('http://localhost:55211/api/Category/').subscribe(data => {
-      console.log(data);
-      this.categories = data;
-      },
-        error => this.MessageClient
-      );
+    this.http.get<Category[]>('http://localhost:55211/api/Category/').subscribe(data => {this.categories = data;});
    }
 
    GetPriorityList()
    {
-    this.http.get<Priority[]>('http://localhost:55211/api/Priority/').subscribe(data => {
-      console.log(data);
-      this.priorities = data;
-      },
-        error => this.MessageClient
-      );
+    this.http.get<Priority[]>('http://localhost:55211/api/Priority/').subscribe(data => {this.priorities = data;});
    }
 
   LoadComplaint(id:number)
@@ -208,14 +203,7 @@ export class ComplaintsComponent implements OnInit {
       data.zipPoll,
       data.email,
       data.rowsReturned
-          );
-
-          //this.ObjComplaintList.push(_complaint);
-         
-         
-        
-
-    //console.log(this.currentPageSize);  
+          ); 
     },
     error => this.MessageClient
   );
@@ -223,47 +211,29 @@ export class ComplaintsComponent implements OnInit {
    console.log(this.selectedComplaint.name);
   }
 
+  
+
   GetUserList()
   {
-    this.http.get<User[]>('http://localhost:55211/api/Staff/').subscribe(data => {
-    console.log('USER DATA = ' + data);
-    this.users = data;
-    },
-    error => this.MessageClient
-    );
+    this.http.get<User[]>('http://localhost:55211/api/Staff/').subscribe(data => {this.users = data});
+    //this.users = this.complaintService.GetUserList();
   }
+ 
 
-  GetCountyList() 
+  GetCountyList()
   {
-    this.http.get<County[]>('http://localhost:55211/api/County/').subscribe(data => {
-    console.log('GETTING COUNTY DATA');
-    console.log(data);
-    this.counties = data;
-    },
-    error => this.MessageClient 
-    );
+    this.http.get<County[]>('http://localhost:55211/api/County/').subscribe(data =>{this.counties = data}); 
   }
 
   GetStatusList()
   {
-    this.http.get<Status[]> ('http://localhost:55211/api/Status').subscribe(data => {
-      console.log('GETTING STATUS DATA');
-      console.log(data);
-      this.statuses = data;
-  },
-  error => this.MessageClient
-  );
-    
+    this.http.get<Status[]> ('http://localhost:55211/api/Status').subscribe(data => {this.statuses = data}); 
   }
+
 
   GetComplaintsByID(id:number)
   {
-    this.http.get<County[]>('http://localhost:55211/api/Complaints/'+id).subscribe(data => {
-      console.log(data);
-      this.counties = data;
-      },
-        error => this.MessageClient
-      );
+    this.http.get<County[]>('http://localhost:55211/api/Complaints/'+id).subscribe(data => {this.counties = data;});
   }
   
   getComplaintsByDateSort(sort:string)
@@ -383,7 +353,7 @@ export class ComplaintsComponent implements OnInit {
   }
   
   }
-
+  //Main Modal to view complaint
   ViewComplaintModalByID(complaintIN:Complaint,open : boolean)
   {
     this.ComplaintDisplay = complaintIN;
@@ -397,7 +367,7 @@ export class ComplaintsComponent implements OnInit {
    this.mdlViewIsOpen = open;
   
   }
-//TODO: Populate Form. See Old class notes
+//Main Modal to Edit Complaint
   EditComplaintModalByID(complaintIN:Complaint,open : boolean)
   {
     

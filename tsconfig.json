@@ -1,7 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
+     "paths": { "*": ["types/*"] },
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -14,14 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
   },
-
   "proxies": [
     {
-    "path": "/api",
-    "proxyUrl": "http://localhost:55211"  
+      "path": "/api",
+      "proxyUrl": "http://localhost:55211"
     }
-    ]
-
+  ]
 }

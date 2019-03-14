@@ -80,7 +80,8 @@
             <td>{{ complaint.createdDate | date: 'MM/dd/yyyy' }}-{{ complaint.namePoll}}</td>
             <td (click)='ViewComplaintModalByID(complaint,true)'> view</td>
             <td (click)='EditComplaintModalByID(complaint,true)'> edit</td>
-            <td (click)='NewComplaint(complaint)'> Edit</td>
+            <!--<td (click)='NewComplaint(complaint)'> Edit</td>-->
+            <td></td>
           </TR>
       </table>
 </div>
@@ -95,7 +96,7 @@
 <div style='float:left' *ngIf="newComplaintIsOpen">
         <!--Detail component to create new COmplaint--> 
         <!--<app-complaint-form [complaint]= 'selectedComplaint' ></app-complaint-form>-->
-        <app-complaint-form [complaint]="clickedComplaint"></app-complaint-form>
+        <!--<app-complaint-form [complaint]="clickedComplaint"></app-complaint-form>-->
         <!--<app-event-details [event]="clickedEvent"></app-event-details>-->
 </div>
 
@@ -105,7 +106,7 @@
         <!--Detail component to create new COmplaint--> 
        
         <!--<app-complaint-edit (messageEvent)="receiveMessage($event)"></app-complaint-edit>-->
-        <app-complaint-edit  (messageEventEdit)="receiveMessage($event)"  [childMessage]="parentMessage"></app-complaint-edit>
+        <!--<app-complaint-edit  (messageEventEdit)="receiveMessage($event)"  [childMessage]="parentMessage"></app-complaint-edit>-->
 </div>
 
 
