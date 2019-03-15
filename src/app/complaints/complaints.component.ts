@@ -385,7 +385,9 @@ export class ComplaintsComponent implements OnInit {
   
   }
 
-
+//I tested the WEB.API and it works.
+//Blobs need to be trimmed.
+//Some ints are coming to web.api as zero
   UpdateComplaint()
   {
     const httpOptions = {
